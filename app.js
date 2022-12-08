@@ -7,6 +7,9 @@ var logger = require('morgan');
 const mongoose = require('mongoose');
 const config = require('./config/globals');
 
+const passport = require('passport');
+const BasicStrategy = require('passport-http').BasicStrategy;
+
 // web app endpoint routers
 var indexRouter = require('./routes/index');
 // api endpoint routers
@@ -24,25 +27,42 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// initialize passport module
+app.use(passport.initialize());
+// implement Basic Strategy
+passport.use(new BasicStrategy((username, password, done) => {
+  if (username == 'jbalsicas' && password == 'xVqgtPqrJ8LhkOF0') {
+    console.log('Admin authenticated successfully!');
+    return done(null, username);
+  } else {
+    console.log(username + 'Tried to authenticate unsuccessfully!');
+    return done(null, false);
+  }
+}));
+
 app.use('/', indexRouter);
 // enable endpoint
-app.use('/api/syncs', syncsRouter);
+app.use(
+  '/api/syncs',
+  passport.authenticate('basic', {session: false}),
+  syncsRouter
+);
 
 // connect to mongo db after the router configuration
 mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true })
-.then((message) => {
-  console.log('Connected successfully!');
-})
-.catch((error) => {
-  console.log('Error while connecting! ${error}');
-});
+  .then((message) => {
+    console.log('Connected successfully!');
+  })
+  .catch((error) => {
+    console.log('Error while connecting! ${error}');
+  });
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
