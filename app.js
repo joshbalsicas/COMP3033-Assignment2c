@@ -30,6 +30,10 @@ var app = express();
 var cors = require('cors');
 app.use(cors());
 
+// load openapi file from yaml file
+const swaggerDocument = YAML.load('./docs/sync-tracker-api.yaml');
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
