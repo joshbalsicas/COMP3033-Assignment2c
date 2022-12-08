@@ -15,6 +15,15 @@ var indexRouter = require('./routes/index');
 // api endpoint routers
 const syncsRouter = require('./routes/api/syncs');
 
+// import pacakges needed for swaggerui/openapi
+
+// allows you to render a user-friendly swagger ui documentation page
+const swaggerUI = require('swagger-ui-express'); 
+// allows you to load a yaml file into an object
+const YAML = require('yamljs'); 
+// for parsing comments into openapi
+const swaggerJSDoc = require('swagger-jsdoc'); 
+
 var app = express();
 
 // view engine setup
