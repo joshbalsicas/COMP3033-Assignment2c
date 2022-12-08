@@ -1,0 +1,12 @@
+openapi: 3.0.0
+info:
+  title: "SyncUs"
+  version: "1.0.0"
+  contact:
+    name: Joshua Balsicas
+    email: joshua@coolguyz.ca
+    url: https://coolguyz.ca
+tags:
+  - name: Georgian College
+    description: The college that I am currently attending
+paths: {}
