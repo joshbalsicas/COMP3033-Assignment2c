@@ -15,7 +15,7 @@ router.get('/', (req, res, next) => {
         } else {
             res.json(syncs).status(200);
         }
-    });
+    })
 });
 
 // POST handler for /api/syncs/ > adds the provided object in the request body to the database
@@ -74,6 +74,20 @@ router.put('/:_id', (req, res, next) => {
             }
         });
     }
+});
+
+// DELETE handler for /api/syncs/:_id
+router.delete('/:_id', (req, res, next) => {
+    Sync.remove({
+        _id: req.params._id
+    }, (err) => {
+        if (err) {
+            console.log(err);
+            res.status(500).json({'ErrorMessage': 'Server threw an exception!'});
+        } else {
+            res.status(200).json({'success': 'true'});
+        }
+    })
 });
 // export this router so we can configure it in app.js
 module.exports = router;
