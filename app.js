@@ -10,7 +10,7 @@ const config = require('./config/globals');
 // web app endpoint routers
 var indexRouter = require('./routes/index');
 // api endpoint routers
-const faqsRouter = require('./routes/api/faqs');
+const syncsRouter = require('./routes/api/syncs');
 
 var app = express();
 
@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 // enable endpoint
-app.use('/api/faqs', faqsRouter);
+app.use('/api/syncs', syncsRouter);
 
 // connect to mongo db after the router configuration
 mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true })
