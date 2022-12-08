@@ -26,6 +26,10 @@ const swaggerJSDoc = require('swagger-jsdoc');
 
 var app = express();
 
+// enable cors using npm package
+var cors = require('cors');
+app.use(cors());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');

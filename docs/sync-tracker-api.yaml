@@ -6,7 +6,23 @@ info:
     name: Joshua Balsicas
     email: joshua@coolguyz.ca
     url: https://coolguyz.ca
+servers:
+  - url: http://localhost:3000/api
 tags:
   - name: Georgian College
     description: The college that I am currently attending
-paths: {}
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+paths:
+  /syncs:
+    get:
+      security:
+        - basicAuth: []
+      description: Returns a list of SyncUs profiles
+      responses:
+        '200':
+          description: Unfiltered list of SyncUs profiles
+        
