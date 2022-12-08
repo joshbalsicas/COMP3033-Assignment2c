@@ -14,7 +14,7 @@ const schemaDefinition = {
         type: Number,
         required: true
     },
-    favColour: {
+    oneLiner: {
         type: String,
         required: true
     },
