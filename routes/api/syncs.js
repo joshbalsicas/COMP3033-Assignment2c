@@ -8,14 +8,28 @@ const Sync = require('../../models/sync');
 
 // GET handler for /api/syncs/ > returns a list of sync profiles in the database
 router.get('/', (req, res, next) => {
-    Sync.find((err, syncs) => {
+    // filter by age
+    // pass parameters as URL query string
+    // expected query string is ?age=25
+
+    // create a query object as a dynamic object
+    let query = {}; // represents my filter in mongodb
+    // retrieve query string
+    // parse the values and filter modify the query object
+    if (req.query.age) { // if course is not null
+        query.age = req.query.age;
+    }
+    // find takes two parameters: filter, callback
+    Sync.find(
+        query,
+        (err, syncs) => {
         if (err) {
             console.log(err);
-            res.json('ERROR').status(500);
+            res.status(500).json({'ErrorMessage': 'Server threw an exception!'});
         } else {
-            res.json(syncs).status(200);
+            res.status(200).json(syncs);
         }
-    })
+    });
 });
 
 // POST handler for /api/syncs/ > adds the provided object in the request body to the database
@@ -87,7 +101,7 @@ router.delete('/:_id', (req, res, next) => {
         } else {
             res.status(200).json({'success': 'true'});
         }
-    })
+    });
 });
 // export this router so we can configure it in app.js
 module.exports = router;
