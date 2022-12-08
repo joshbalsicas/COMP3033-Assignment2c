@@ -25,4 +25,25 @@ paths:
       responses:
         '200':
           description: Unfiltered list of SyncUs profiles
+    post:
+      security:
+        - basicAuth: []
+      description: Adds a new SyncUs profile
+      responses:
+        '200':
+          description: Creates a new SyncUs profile
+    put:
+      security:
+        - basicAuth: []
+      description: Edits an existing SyncUs profile
+      responses:
+        '200':
+          description: Allows changes to any existing SyncUs profile
+    delete:
+      security:
+        - basicAuth: []
+      description: Deletes an existing SyncUs profile
+      responses:
+        '200':
+          description: Removes a SyncUs profile from the MongoDB database
         
